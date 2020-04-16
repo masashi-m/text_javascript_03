@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JS_3.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="1-%E9%85%8D%E5%88%97%E3%81%A8%E9%80%A3%E6%83%B3%E9%85%8D%E5%88%97">1. 配列と連想配列</h1>
+<h2 id="%E2%97%86-%E9%85%8D%E5%88%97%E3%81%A8%E3%81%AF">◆ 配列とは</h2>
+<p>順序をつけて値を並べたデータを配列と言い、変数に格納が可能です。<br>
+値を<mark>要素</mark>、要素の位置を<mark>インデックス(添字)</mark>と呼びます。</p>
+<img src="array.png">
+<p>上記の各 fruits 要素は<mark>[]角括弧</mark>に数値を入れて指定できます。ここでは、<br>
+インデックスの<mark>1 番目が[0]</mark>で表されている点に注意しましょう。</p>
+<br>
+<h3 id="%E2%97%8F-%E9%85%8D%E5%88%97%E3%81%AE%E8%A8%98%E8%BF%B0%E6%96%B9%E6%B3%95">● 配列の記述方法</h3>
+<p>配列は主に以下の方法で記述します。</p>
+<pre class="hljs"><code><div>fruits = [<span class="hljs-string">"Apple"</span>, <span class="hljs-string">"Orange"</span>, <span class="hljs-string">"Banana"</span>, <span class="hljs-string">"Peach"</span>];
+</div></code></pre>
+<br>
+<p>この時、要素が文字列型であれば<mark>' '</mark> や <mark>&quot; &quot;</mark> で囲みます。<br>
+また要素毎に <mark>,</mark> で区切る点に注意しましょう。<br>
+格納された配列は、変数[] にインデックス番号を記述する事で指定できます。
+<br></p>
+<pre class="hljs"><code><div>fruits = [<span class="hljs-string">"Apple"</span>, <span class="hljs-string">"Orange"</span>, <span class="hljs-string">"Banana"</span>, <span class="hljs-string">"Peach"</span>];
+<span class="hljs-built_in">console</span>.log(fruits[<span class="hljs-number">0</span>]);
+<span class="hljs-comment">// Apple が出力</span>
+</div></code></pre>
+<p><br><br><br></p>
+<h2 id="%E2%97%86-%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3%E3%81%A8%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9">◆ プロパティとメソッドの使い方</h2>
+<p>配列が格納された変数に対し、<mark>プロパティ</mark> または <mark>メソッド名</mark>を記述し、<br>
+値の取得や要素の変更が可能です。以下はその一例です。</p>
+<blockquote>
+<ul>
+<li>変数.length：配列の長さ(要素の数)を取得する</li>
+<li>変数.unshift()：先頭に要素を追加する</li>
+<li>変数.push()：末尾に要素を追加する</li>
+<li>変数.sort()：昇順に並び替える</li>
+</ul>
+</blockquote>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のプロパティ/メソッドを利用して、以下の処理を実行するコードを記述しましょう。 > <a href="http://lite.runstant.com/" target="_blank">Runstant</a><br>
+配列 numbers = [4, 2, 3]; に対し、<br>
+(1) 昇順に並び替えて、出力する<br>
+(2) 1を先頭、5を末尾に追加し、出力する<br>
+(3) 平均値を計算し、出力する<br>
+※ 回答例は 4ページ
+</div>
+<br>
+<h2 id="%E2%97%86-%E9%80%A3%E6%83%B3%E9%85%8D%E5%88%97">◆ 連想配列</h2>
+<p>配列のインデックス部分に対し、キーを設定した配列の事です。<br>
+値のプロパティを含めてデータを格納する事ができます。</p>
+<h3 id="%E2%97%8F-%E9%80%A3%E6%83%B3%E9%85%8D%E5%88%97%E3%81%AE%E8%A8%98%E8%BF%B0%E6%96%B9%E6%B3%95">● 連想配列の記述方法</h3>
+<pre class="hljs"><code><div>変数 = {
+  キー: 値,
+};
+</div></code></pre>
+<br>
+<p>配列は[]角括弧で囲みましたが、連想配列は<mark>{}波括弧</mark>を使用します。<br>
+キーと値の間には<mark>:コロン</mark>を記述し、値を出力する場合は変数[]の中にキーを指定します。<br>
+また、連想配列は記述が長くなりやすいので、要素毎に改行する事が多いです。</p>
+<pre class="hljs"><code><div>murao = {
+  <span class="hljs-attr">age</span>: <span class="hljs-number">34</span>,
+  <span class="hljs-attr">campany_number</span>: <span class="hljs-number">352</span>,
+  <span class="hljs-attr">birth_place</span>: <span class="hljs-string">"Osaka"</span>,
+  <span class="hljs-attr">address</span>: <span class="hljs-string">"Chiba"</span>,
+};
+<span class="hljs-built_in">console</span>.log(murao[<span class="hljs-string">"campany_number"</span>]);
+<span class="hljs-comment">//352が表示される</span>
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+次の連想配列を記述し、表示結果を確認しましょう。 <br>
+変数：りんご<br>
+キーと値： 色：赤、味：甘い、重さ：100g<br>
+出力：色<br>
+※ 変数、キー、値は英単語で記述して下さい。<br>
+> <a href="https://codic.jp/engine" target="_blank">Codic</a><br>
+※ 回答例は 4ページ
+</div>
+<br>
+<br>
+<p>また、配列の要素には数値や文字列などのデータ型以外に、<br>
+配列や連想配列を入れる事も可能です。</p>
+<pre class="hljs"><code><div>fruits = {
+  <span class="hljs-attr">apple</span>: { <span class="hljs-attr">color</span>: <span class="hljs-string">"red"</span> },
+  <span class="hljs-attr">lemon</span>: { <span class="hljs-attr">color</span>: <span class="hljs-string">"yellow"</span> },
+  <span class="hljs-attr">peach</span>: { <span class="hljs-attr">color</span>: <span class="hljs-string">"pink"</span> },
+  <span class="hljs-attr">melon</span>: { <span class="hljs-attr">color</span>: <span class="hljs-string">"green"</span> },
+};
+<span class="hljs-built_in">console</span>.log(fruits[<span class="hljs-string">"peach"</span>][<span class="hljs-string">"color"</span>]);
+<span class="hljs-comment">//pinkが表示される</span>
+</div></code></pre>
+<p><br><br><br></p>
+<p>演習 1 回答例</p>
+<p>回答例 1</p>
+<pre class="hljs"><code><div>numbers = [<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+numbers.sort();
+<span class="hljs-built_in">console</span>.log(numbers);
+</div></code></pre>
+<p>回答例 2</p>
+<pre class="hljs"><code><div>numbers.unshift(<span class="hljs-number">1</span>);
+numbers.push(<span class="hljs-number">5</span>);
+<span class="hljs-built_in">console</span>.log(numbers);
+</div></code></pre>
+<p>回答例 3-1</p>
+<pre class="hljs"><code><div>total = numbers[<span class="hljs-number">0</span>] + numbers[<span class="hljs-number">1</span>] + numbers[<span class="hljs-number">2</span>] + numbers[<span class="hljs-number">3</span>] + numbers[<span class="hljs-number">4</span>];
+average = total / <span class="hljs-number">5</span>;
+<span class="hljs-built_in">console</span>.log(average);
+</div></code></pre>
+<p>回答例 3-2</p>
+<pre class="hljs"><code><div>total = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; numbers.length; i++) {
+  total = total + numbers[i];
+}
+average = total / numbers.length;
+<span class="hljs-built_in">console</span>.log(average);
+</div></code></pre>
+<p>演習 2 回答例</p>
+<pre class="hljs"><code><div>apple = { <span class="hljs-attr">color</span>: <span class="hljs-string">"red"</span>, <span class="hljs-attr">taste</span>: <span class="hljs-string">"sweet"</span>, <span class="hljs-attr">weight</span>: <span class="hljs-string">"100g"</span> };
+<span class="hljs-built_in">console</span>.log(apple[<span class="hljs-string">"color"</span>]);
+</div></code></pre>
+<p><br><br><br></p>
+<h1 id="2-%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88">2. オブジェクト</h1>
+<h2 id="%E2%97%86-%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88">◆ プロパティ、メソッド、オブジェクト</h2>
+<p>この章では、オブジェクト、プロパティ、メソッドについて、<br>
+あらためて理解を深めて行きましょう。</p>
+<br>
+<h3 id="%E2%97%8F-%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88">● オブジェクト</h3>
+<p>元々は「物・事」「対象」の意味を持つ単語で、特に IT 用語としては、<br>
+<mark>プロパティの集合体</mark>を指し、プログラム上で「モノ」を表現しています。</p>
+<img src="object.png">
+<br>
+<br>
+<h3 id="%E2%97%8F-%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3">● プロパティ</h3>
+<p>プロパティとは、<mark>名前(キー)</mark>と<mark>値</mark>がセットになったデータを指し、<br>
+オブジェクトの状態や属性を表します。値には<br>
+文字、数値、論理値、配列、関数を設定できます。</p>
+<p>りんご をオブジェクト(モノ)とした時、<br>
+そのプロパティ(状態・属性)は次のように表せます。</p>
+<blockquote>
+<p>種類：果物 <br>
+色：赤<br>
+味:甘い<br>
+重さ:100g<br>
+組成：['皮', '果肉', '種', '果汁']<br></p>
+</blockquote>
+<p><br><br><br></p>
+<p>データ上の りんごは、種類や色などの情報で表現できるため、<br>
+「オブジェクト = プロパティの集まり」であると言えます。</p>
+<img src="apple.png">
+<p>前章で学んだ連想配列は、<mark>オブジェクトそのもの</mark>でもあります。<br>
+例えば 上記の りんご オブジェクトは、以下の様に記述できます。</p>
+<pre class="hljs"><code><div>apple = {
+  <span class="hljs-attr">category</span>: <span class="hljs-string">"fruit"</span>,
+  <span class="hljs-attr">color</span>: <span class="hljs-string">"red"</span>,
+  <span class="hljs-attr">weight</span>: <span class="hljs-string">"100g"</span>,
+  <span class="hljs-attr">taste</span>: <span class="hljs-string">"stweet"</span>,
+  <span class="hljs-attr">structure</span>: [<span class="hljs-string">"peel"</span>, <span class="hljs-string">"pulp"</span>, <span class="hljs-string">"seed"</span>, <span class="hljs-string">"juice"</span>],
+};
+
+<span class="hljs-built_in">console</span>.log(apple[<span class="hljs-string">"structure"</span>]);
+</div></code></pre>
+<br>
+<h3 id="%E2%97%8F-%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89">● メソッド</h3>
+<p>プロパティを構成する「キーと値」の中で、値が関数になっているものです。<br>
+そのため、メソッドはプロパティの一部であり、更に関数とメソッドは<br>
+意味や働きとしては非常に近いものになります。</p>
+<img src="property.png">
+<br>
+<p>もし、りんごに対して「皮をむく」というメソッドが実行されれば、<br>
+「配列 structure から、peel 要素が削除される」 と考える事が出来ます。</p>
+<br>
+<br>
+<h1 id="3-%E9%96%A2%E6%95%B0%E3%81%AE%E5%AE%9A%E7%BE%A9%E3%83%A6%E3%83%BC%E3%82%B6%E5%AE%9A%E7%BE%A9%E9%96%A2%E6%95%B0">3. 関数の定義(ユーザ定義関数)</h1>
+<h2 id="%E2%97%86-%E9%96%A2%E6%95%B0">◆ 関数</h2>
+<p>関数とは特定の処理を定義し、呼び出す事で実行機能を有したものです。<br>
+Excel の関数の様に、与えられた値(引数)に対して結果を返す処理が主となります。</p>
+<br>
+<h2 id="%E2%97%86-%E3%83%A6%E3%83%BC%E3%82%B6%E5%AE%9A%E7%BE%A9%E9%96%A2%E6%95%B0">◆ ユーザ定義関数</h2>
+<p>目的の処理を実現するため、名前や処理の内容を<br>
+自分で定義する関数を、<mark>ユーザ定義関数</mark>と言います。<br>
+また、標準で使用できる関数の事を<mark>組み込み関数</mark>といいます。</p>
+<br>
+<h3 id="%E2%97%8F-%E3%83%A6%E3%83%BC%E3%82%B6%E5%AE%9A%E7%BE%A9%E9%96%A2%E6%95%B0%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9">● ユーザ定義関数の書き方</h3>
+<p>ここでは <mark>function 関数</mark>の書き方を学んで行きましょう。<br>
+下記のコードが基本の形となります。</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> 名前(<span class="hljs-params"></span>) </span>{
+  実行処理;
+}
+名前();
+</div></code></pre>
+<p>まず function を宣言し、関数の名前を指定します。<br>
+続いて{}波括弧の中に実行したい処理を記述します。</p>
+<p>{}波括弧の外で関数名を記述すると、定義した関数を呼び出します。<br>
+関数呼び出しの()丸括弧には<mark>; セミコロン</mark>が必要なので、注意しましょう。</p>
+<br>
+<p>次の演習で、構造の感覚を掴みましょう。</p>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+下記のコードを記述し、実行して結果を表示させましょう。<br>
+また、定義した関数名の呼出し greeting(); をコメントアウトし、結果を確認しましょう。<br>
+</div>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">greeting</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Hello"</span>);
+}
+greeting();
+</div></code></pre>
+<h3 id="%E2%97%8F-%E5%BC%95%E6%95%B0%E3%81%A8%E6%88%BB%E3%82%8A%E5%80%A4">● 引数と戻り値</h3>
+<p>演習 1 は関数を呼び出すと、Hello の文字が出力されました。<br>
+このような処理の場合、値を渡す必要がないため、<br>
+呼び出し時の()丸括弧は空欄となります。<br>
+処理によっては値を代入し、処理を行った結果を返す必要があります。</p>
+<p>この時、渡した値を<mark>引数</mark>、返って来た結果を<mark>戻り値</mark>といいます。</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> 名前(<span class="hljs-params">変数</span>) </span>{
+  変数を用いた処理;
+}
+名前(引数);
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> 名前(<span class="hljs-params">変数<span class="hljs-number">1</span>, 変数<span class="hljs-number">2</span></span>) </span>{
+  変数を用いた処理;
+}
+名前(引数<span class="hljs-number">1</span>, 変数<span class="hljs-number">2</span>);
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+下記のコードを記述し、実行して結果を表示させましょう。<br>
+※ 関数 average の()内には、任意の数値を2つ、カンマで区切って入力します。<br>
+</div>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">average</span>(<span class="hljs-params">num1, num2</span>) </span>{
+  sum = num1 + num2;
+  ave = sum / <span class="hljs-number">2</span>;
+  <span class="hljs-built_in">console</span>.log(ave);
+}
+average(任意の数値<span class="hljs-number">1</span>, 任意の数値<span class="hljs-number">2</span>);
+</div></code></pre>
+<p><br><br><br></p>
+<h3 id="%E2%97%8Freturn-%E6%96%87">●return 文</h3>
+<p>上記の演習では実行処理に console.log を含むため、<br>
+関数を呼び出すだけで結果が出力されました。</p>
+<p>通常、定義した処理の結果は <mark>return 文</mark>で関数に戻す必要があります。<br>
+以下の演習で return 文の役割を確認しましょう。</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calculate</span>(<span class="hljs-params">num1, num2</span>) </span>{
+  sum = num1 + num2;
+  <span class="hljs-comment">//return sum;</span>
+}
+<span class="hljs-built_in">console</span>.log(calculate(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>));
+</div></code></pre>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 3</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のコードを記述し、結果を表示させましょう。<br>
+(return文のコメントもそのまま記述します)<br>
+結果を確認した後、コメントを外し、再度実行して結果を確認しましょう<br>
+</div>
+<p><br><br><br></p>
+<h1 id="4-%E3%82%A2%E3%83%AD%E3%83%BC%E9%96%A2%E6%95%B0">4. アロー関数</h1>
+<h2 id="%E2%97%86-%E3%82%A2%E3%83%AD%E3%83%BC%E9%96%A2%E6%95%B0%E3%81%A8%E3%81%AF">◆ アロー関数とは</h2>
+<p>function を宣言せずに関数を定義する記述方法で、<br>
+関数名の後ろの <mark>=&gt;</mark> の形から、アロー関数と呼ばれています。</p>
+<p>基本構造は、以下の形となります。</p>
+<pre class="hljs"><code><div>名前 = <span class="hljs-function">(<span class="hljs-params">引数</span>) =&gt;</span> {
+  実行処理;
+};
+</div></code></pre>
+<br>
+<p>さらに、実行する処理が 1 行の場合は<mark>{}波括弧が不要</mark>となり、<br>
+引数が 1 つだけなら<mark>()丸括弧も不要</mark>です。</p>
+<pre class="hljs"><code><div>名前 = <span class="hljs-function">(<span class="hljs-params">引数</span>) =&gt;</span> 実行処理;
+</div></code></pre>
+<p>引数がない場合は空白になってしまうため、丸括弧の記述が必要となります。</p>
+<pre class="hljs"><code><div>名前 = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> 実行処理;
+</div></code></pre>
+<p>記述方法に複数のパターンがありますので、<br>
+実際にコードを記述して、感覚を掴んでいきましょう。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+下記のコードを記述し、実行結果を確認しましょう。
+</div>
+<br>
+<pre class="hljs"><code><div><span class="hljs-comment">//引数なし</span>
+<span class="hljs-keyword">let</span> greeting = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Hello"</span>);
+greeting();
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//引数が 1つ</span>
+<span class="hljs-keyword">let</span> square = <span class="hljs-function">(<span class="hljs-params">num</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(num * num);
+square(<span class="hljs-number">10</span>);
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//引数と処理が複数</span>
+<span class="hljs-keyword">let</span> average = <span class="hljs-function">(<span class="hljs-params">num1, num2, num3</span>) =&gt;</span> {
+  sum = num1 + num2 + num3;
+  result = sum / <span class="hljs-number">3</span>;
+  <span class="hljs-keyword">return</span> result;
+};
+<span class="hljs-built_in">console</span>.log(average(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>));
+</div></code></pre>
+<br>
+<h2 id="%E2%97%86-%E7%B7%8F%E5%90%88%E6%BC%94%E7%BF%92">◆ 総合演習</h2>
+<p>ここまで「配列」「オブジェクト」「ユーザ定義関数」「アロー関数」を学習しました。<br>
+これらの理解を深めるため、以下の演習問題に回答しましょう。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:pink; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">総合演習 1</span>
+</div>
+<div style="border:4px solid pink; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+function関数を用いて、以下の処理を実行する関数を作成しましょう。<br>
+◆入力した数字が 5の倍数かどうか判定する関数<br>
+・5の倍数の場合、「入力値：〇〇は 5の倍数です」 (〇〇は入力値)を出力する。<br>
+・上記に該当しない場合、「入力値：〇〇は 5の倍数ではありません」 (〇〇は入力値)を出力する<br>
+※「」は出力しない。<br>
+</div>
+<p>ヒント 1</p>
+<blockquote>
+<p>・let 関数名 = (変数 1, 変数 2) =&gt; {} を宣言する<br>
+・合計値を格納する変数を作成する<br>
+・繰り返し文 (for 文) を使用する<br></p>
+</blockquote>
+<p>ヒント 2</p>
+<blockquote>
+<p>・5 の倍数の判定は 変数 % 5 === 0 で判定<br>
+・条件が 2 通りのため、if 文 は else 1 回の記述が必要<br>
+・function 関数の{}波括弧の後に、関数名(引数); の呼び出しが必要<br></p>
+</blockquote>
+<p>ヒント 3</p>
+<blockquote>
+<p>・基本構文は function 関数名(変数) { if(条件式) { 実行処理 } else { 実行処理 } } 関数名(引数); <br>
+・実行処理は &quot;文字列&quot; + 変数 + &quot;文字列&quot;; で表示させる<br>
+・実行処理に return 文を記述した場合は、関数名呼び出し時に console.log が必要<br></p>
+</blockquote>
+<p>ヒント 4</p>
+<blockquote>
+<p>・if (number % 5 ===0)<br>
+・実行処理部分は、 { return &quot;入力値&quot; + 変数 + &quot;は 5 の倍数です&quot;; } と<br> &gt;  { return &quot;入力値&quot; + 変数 + &quot;は 5 の倍数ではありません&quot;; } となる。<br>
+・console.log(関数名(引数));で呼び出す<br></p>
+</blockquote>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:pink; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">総合演習 2</span>
+</div>
+<div style="border:4px solid pink; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+アロー関数を用いて、以下の処理を実行する関数を作成しましょう<br>
+◆入力した 2つの値から値までの合計値を計算する関数<br>
+・入力値の1つ目の方が小さい条件で設計する<br>
+・「〇〇から△△の合計は□□です」 (〇〇と△△は入力値、□□は合計値)を出力する <br>
+※「」は出力しない。<br>
+</div>
+<p>ヒント 1</p>
+<blockquote>
+<p>・let 関数名 = (変数 1, 変数 2) =&gt; {} を宣言する<br>
+・合計値を格納する変数を作成する<br>
+・繰り返し文 (for 文) を使用する<br></p>
+</blockquote>
+<p>ヒント 2</p>
+<blockquote>
+<p>・結果出力の処理は &quot;文字列&quot; + 変数 + &quot;文字列&quot;; で表示させる<br>
+・for(式 1; 式 2; 式 3) { }で繰り返し文を設定する<br>
+・アロー関数の{}波括弧の後に、関数名(引数); の呼び出しが必要となる<br></p>
+</blockquote>
+<p>ヒント 3</p>
+<blockquote>
+<p>・基本構文は let 関数名 = (変数 1, 変数 2) =&gt; { for (式 1; 式 2; 式 3) {実行処理 1} 実行処理 2 } 関数名(引数);
+・for(変数 3=〇〇;変数 3&lt;=〇〇;変数 3++){}で繰り返し文を設定する<br>
+・実行処理 2 に return 文を記述した場合は、関数名呼び出し時に console.log が必要<br></p>
+</blockquote>
+<p>ヒント 4</p>
+<blockquote>
+<p>・for(変数 3=変数 1; 変数 3&lt;=変数 2; 変数 3++) {}<br>
+・実行処理 1 は、合計値の変数 = 合計値の変数 + 変数 3;<br>
+・実行処理 2 は、return 変数 1 + &quot;から&quot; + 変数 2 + &quot;の合計は&quot; + (合計値の変数) + &quot;です&quot;;<br>
+・console.log(関数名(引数 1, 引数 2)); で呼び出す<br></p>
+</blockquote>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:pink; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">総合演習 3(難)</span>
+</div>
+<div style="border:4px solid pink; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+[3-1]<br>
+連想配列を用いて、以下のデータを変数に格納しましょう。<br>
+あるECサイトの会員Aさん、Bさん、Cさんのアカウント情報を以下の内容で格納する。<br>
+&nbsp;&nbsp;id_001：「名前:A、プラン:nomal、割引率:0.95」<br>
+&nbsp;&nbsp;id_002：「名前:B、プラン:premium、割引率:0.9」<br>
+&nbsp;&nbsp;id_003：「名前:C、プラン:premium、割引率:0.9」<br>
+<br>
+[3-2]<br>
+function関数またはアロー関数を用いて、以下の処理を実装しましょう。<br>
+・会員番号と購入金額を入力すると、割引した値段が出力される<br>
+</div>
+<br>
+<p>ヒント 1</p>
+<blockquote>
+<p>・連想配列の基本形は、変数 = {'キー 1':'値 1', 'キー 2':'値 2', 'キー 3':'値 3'};<br>
+・任意の変数を指定し、連想配列(要素の値)に連想配列を格納する<br>
+・要素内の連想配列を指定するには、変数名[キー 1][キー2];の形で記述する<br>
+・function()またはアロー関数は、配列の記述の後に記載する<br></p>
+</blockquote>
+<p>ヒント 2</p>
+<blockquote>
+<p>・連想配列内の連想配列は、 {キー:{'キー 1':'値 1', 'キー 2':'値 2', 'キー 3':'値 3'}}<br>
+・function()またはアロー関数の引数は 2 つあり、会員番号と購入金額を指定する<br>
+・実行処理は、連想配列から割引率を出力し、入力した購入金額(引数)と計算させる<br>
+・割引後の金額は、変数を作成して格納する<br></p>
+</blockquote>
+<p>ヒント 3</p>
+<blockquote>
+<p>・(A さんの記述例) {'id_001':{'name':'A', 'plan':'nomal', 'discount':0.95} <br>
+・(割引率出力の記述例) 任意の変数[引数 1]['discount']; <br></p>
+</blockquote>
+<p>ヒント 4</p>
+<blockquote>
+<p>・(割引金額の記述例) discount_price = 任意の変数[引数 1]['discount'] * 引数 2; <br>
+・演習 1,2 と同様に、実行処理部分で return 文を使った場合は、関数名呼び出し時に console.log を使う<br></p>
+</blockquote>
+<br>
+<p>総合演習 1 回答例</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">five_check</span>(<span class="hljs-params">number</span>) </span>{
+  <span class="hljs-keyword">if</span> (number % <span class="hljs-number">5</span> === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"入力値"</span> + number + <span class="hljs-string">"は5の倍数です"</span>;
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"入力値"</span> + number + <span class="hljs-string">"は5の倍数ではありません"</span>;
+  }
+}
+<span class="hljs-built_in">console</span>.log(five_check(<span class="hljs-number">100</span>));
+</div></code></pre>
+<p>総合演習 2 回答例</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> sum = <span class="hljs-function">(<span class="hljs-params">num1, num2</span>) =&gt;</span> {
+  total = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">for</span> (i = num1; i &lt;= num2; i++) {
+    total = total + i;
+  }
+  <span class="hljs-keyword">return</span> num1 + <span class="hljs-string">"から"</span> + num2 + <span class="hljs-string">"の合計は"</span> + total + <span class="hljs-string">"です"</span>;
+};
+<span class="hljs-built_in">console</span>.log(sum(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>));
+</div></code></pre>
+<p>総合演習 3 回答例</p>
+<pre class="hljs"><code><div>members = {
+  <span class="hljs-attr">id_001</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">"A"</span>, <span class="hljs-attr">plan</span>: <span class="hljs-string">"nomal"</span>, <span class="hljs-attr">discount</span>: <span class="hljs-number">0.95</span> },
+  <span class="hljs-attr">id_002</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">"B"</span>, <span class="hljs-attr">plan</span>: <span class="hljs-string">"premium"</span>, <span class="hljs-attr">discount</span>: <span class="hljs-number">0.9</span> },
+  <span class="hljs-attr">id_003</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">"C"</span>, <span class="hljs-attr">plan</span>: <span class="hljs-string">"premium"</span>, <span class="hljs-attr">discount</span>: <span class="hljs-number">0.9</span> },
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get_price</span>(<span class="hljs-params">id, price</span>) </span>{
+  discount_price = members[id][<span class="hljs-string">"discount"</span>] * price;
+  <span class="hljs-keyword">return</span> discount_price;
+}
+<span class="hljs-built_in">console</span>.log(get_price(<span class="hljs-string">"id_001"</span>, <span class="hljs-number">1000</span>));
+</div></code></pre>
+<p>今回はここまでです。お疲れ様でした！</p>
+<p><a href="https://masashi-m.github.io/text_htmlcss_04/">JavaScript 学習テキスト(4)へ</a></p>
+
+</body>
+</html>
